@@ -1,4 +1,4 @@
-# S3-Bucket-Setup
+# S3 Bucket Setup
 Install Node.js: If you haven't already, install Node.js from the official website.
 
 Create a new Node.js project: In your project directory, initialize a new Node.js project: npm init -y
