@@ -6,3 +6,6 @@ Create a new Node.js project: In your project directory, initialize a new Node.j
 Install Required Packages: Install express for creating the server and aws-sdk for interacting with AWS S3. //npm install express aws-sdk multer @aws-sdk/client-s3 @aws-sdk/s3-request-presigner @aws-sdk/lib-storage
 
 Run the server using the command: node server.js
+
+
+Your index.html file should be in a folder called public inside the folder for this project.
