@@ -200,7 +200,7 @@
         // Listen for the custom event to show the File Upload Modal
         window.botpressWebChat.onEvent(event => {
             if (event.type === 'TRIGGER') {
-              if (event.value && event.value.action === 'FileUpload') {
+              if (event.value && event.value.action === 'FileUploadS3Bucket') {
                 const modal = document.getElementById('fileUploadModal');
                 modal.style.display = 'block';
               }
