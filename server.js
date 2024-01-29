@@ -2,20 +2,24 @@ const express = require('express');
 const multer = require('multer');
 const { S3Client, PutObjectCommand } = require('@aws-sdk/client-s3');
 const { Upload } = require("@aws-sdk/lib-storage");
+const cors = require('cors');
 
 const app = express();
+app.use(cors());
 app.use(express.static('public'));
 const upload = multer();
 
+// Define the region as a constant
+const AWS_REGION = 'YourRegion';
+
 // Configure AWS S3 client
 const s3Client = new S3Client({
-    region: 'YourRegion',
+    region: AWS_REGION,
     credentials: {
         secretAccessKey: 'YourSecretAccessKey',
         accessKeyId: 'YourAccessKeyId',
     }
 });
-
 
 // Upload endpoint
 app.post('/upload', upload.single('file'), async (req, res) => {
@@ -23,7 +27,7 @@ app.post('/upload', upload.single('file'), async (req, res) => {
         const file = req.file;
         const fileKey = Date.now().toString()  + '-' + file.originalname;
         const uploadParams = {
-            Bucket: 'YourBucketName',
+            Bucket: 'bucket-botpress',
             Key: fileKey,
             Body: file.buffer,
             ContentType: file.mimetype  
@@ -34,7 +38,7 @@ app.post('/upload', upload.single('file'), async (req, res) => {
         });
         await upload.done();
 
-        const fileUrl = `https://${Bucket}.s3.${region}.amazonaws.com/${fileKey}`;
+        const fileUrl = `https://${uploadParams.Bucket}.s3.${AWS_REGION}.amazonaws.com/${fileKey}`;
         
         res.send({ message: 'File uploaded successfully', fileUrl: fileUrl });
     } catch (error) {
@@ -42,7 +46,6 @@ app.post('/upload', upload.single('file'), async (req, res) => {
         res.status(500).send({ message: 'Error uploading file' });
     }
 });
-
 
 // Start the server
 const PORT = 3000;
