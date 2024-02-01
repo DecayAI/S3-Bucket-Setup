@@ -10,3 +10,6 @@ Run the server using the command: node server.js
 
 
 Your index.html file should be in a folder called public inside the folder for this project.
+
+
+Youtube video about it https://youtu.be/NO1LD4kF4Sk
